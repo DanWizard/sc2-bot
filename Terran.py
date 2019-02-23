@@ -20,9 +20,14 @@ class Hestia(sc2.BotAI):
 			if self.can_afford(SCV) and self.units(SCV).amount <= 80:
 				await self.do(cc.train(SCV))
 	async def build_supplydepot(self):
-		if self.supply_left < 5 and not self.already_pending(SUPPLYDEPOT):
+		if self.supply_left < 7 and not self.already_pending(SUPPLYDEPOT):
 			ccs = self.units(COMMANDCENTER).ready
+			
 			if ccs.exists:
+				print(ccs.center)
+				print(ccs.center)
+				print(ccs.center)
+				print(ccs.center)
 				if self.can_afford(SUPPLYDEPOT):
 					await self.build(SUPPLYDEPOT, near=ccs.first)
 	async def build_refinery(self):
@@ -68,7 +73,7 @@ class Hestia(sc2.BotAI):
 			for s in self.units(MARINE).idle:
 				await self.do(s.attack(self.enemy_start_locations[0]))
 
-		if self.units(MARINE).amount > 20:
+		if self.units(MARINE).amount > 10:
 			if len(self.known_enemy_units) > 0:
 				for s in self.units(MARINE).idle:
 					await self.do(s.attack(random.choice(self.known_enemy_units)))
