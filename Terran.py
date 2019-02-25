@@ -116,5 +116,5 @@ class Hestia(sc2.BotAI):
 					await self.do(m.attack(random.choice(self.known_enemy_units)))
 run_game(maps.get("CyberForestLE"), [
 	Bot(Race.Terran, Hestia()),
-	Computer(Race.Zerg, Difficulty.Hard)],
+	Computer(Race.Zerg, Difficulty.Medium)],
 	realtime = False)

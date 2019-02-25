@@ -7,6 +7,22 @@ import random
 import cv2 
 import numpy as np
 import time
+
+def recur():
+	run_game(maps.get("CyberForestLE"), [
+	Bot(Race.Terran, Hestia()),
+	Computer(Race.Zerg, Difficulty.VeryEasy)],
+	realtime = False)
+	print("end of the GAMMMe")
+	print("end of the GAMMMe")
+	print("end of the GAMMMe")
+	print("end of the GAMMMe")
+	print("end of the GAMMMe")
+	print("end of the GAMMMe")
+	print("end of the GAMMMe")
+	recur()
+
+
 class Hestia(sc2.BotAI):
 
 	def __init__(self):
@@ -14,7 +30,14 @@ class Hestia(sc2.BotAI):
 		self.MW = 65
 		self.scouted = False
 		self.do_something_after = 0
-        self.train_data = []
+		self.train_data = []
+
+	def on_end(self, game_result):
+		print('--- on_end called ---')
+		print(game_result)
+		if game_result == Result.Victory:
+			np.save("train_data/{}.npy".format(str(int(time.time()))), np.array(self.train_data))
+
 
 	async def on_step(self, iteration):
 		self.iteration = iteration
@@ -245,7 +268,4 @@ class Hestia(sc2.BotAI):
 	# 		if len(self.known_enemy_units) > 0:
 	# 			for m in self.units(MARINE).idle:
 	# 				await self.do(m.attack(random.choice(self.known_enemy_units)))
-run_game(maps.get("CyberForestLE"), [
-	Bot(Race.Terran, Hestia()),
-	Computer(Race.Zerg, Difficulty.Hard)],
-	realtime = False)
+recur()
